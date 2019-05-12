@@ -32,6 +32,8 @@ namespace Bitwise_Logic_Demo
             cbxFormat.SelectedIndex = 0;
             tbxOp1.Text = "12";
             tbxOp2.Text = "3";
+
+            submit();
         }
 
         private enum Gates{ AND, OR, NOR, NAND, XOR, XNOR, SLL, SRL, ADD, SUB, MULT, TWOSCOMP, NOT };
@@ -75,7 +77,7 @@ namespace Bitwise_Logic_Demo
         {
             res = "";
 
-            string txt = tbx.Text.Replace(" ", "");
+            string txt = tbx.Text.Replace(" ", "").ToLower();
             long? val = null;
             try
             {
@@ -86,13 +88,13 @@ namespace Bitwise_Logic_Demo
                 }
                 else if (inFormat == Format.HEX)
                 {
-                    txt.Replace("0x", "");
+                    txt = txt.Replace("0x", "");
                     val = Convert.ToInt64(txt, 16);
                     res = Convert.ToString((long)val, 2);
                 }
                 else if (inFormat == Format.BINARY)
                 {
-                    txt.Replace("0b", "");
+                    txt = txt.Replace("0b", "");
                     val = Convert.ToInt64(txt, 2);
                     res = Convert.ToString((long)val, 2);
                 }
@@ -139,14 +141,12 @@ namespace Bitwise_Logic_Demo
             return spaced;
         }
 
-        private void BtnSubmit_Click(object sender, EventArgs e)
+        void submit()
         {
-            string op1, op2;
-            long o1, o2;
-            parse(tbxOp1, out op1, out o1);
-            parse(tbxOp2, out op2, out o2);
+            parse(tbxOp1, out string op1, out long o1);
+            parse(tbxOp2, out string op2, out long o2);
 
-            lblOut1.Text = op1;  
+            lblOut1.Text = op1;
             lblOut2.Text = op2;
 
             try
@@ -157,8 +157,11 @@ namespace Bitwise_Logic_Demo
 
                 lblResult.Text = formatStr(str);
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
+
+        private void BtnSubmit_Click(object sender, EventArgs e) => submit();
+
 
         long calc(long o1, long o2)
         {
@@ -204,10 +207,7 @@ namespace Bitwise_Logic_Demo
         {
             if(e.KeyChar == (char)Keys.Enter)
             {
-                string op1;
-                long l;
-                parse(tbxOp1, out op1, out l);
-
+                parse(tbxOp1, out string op1, out long l);
                 lblOut1.Text = op1;
             }
         }
@@ -216,10 +216,7 @@ namespace Bitwise_Logic_Demo
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                string op2;
-                long l;
-                parse(tbxOp2, out op2, out l);
-
+                parse(tbxOp2, out string op2, out long l);
                 lblOut2.Text = op2;
             }
         }
