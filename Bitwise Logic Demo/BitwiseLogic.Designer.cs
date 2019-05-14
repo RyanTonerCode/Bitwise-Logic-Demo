@@ -119,7 +119,7 @@
             this.tblRegView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblRegView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 216F));
             this.tblRegView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177F));
-            this.tblRegView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 894F));
+            this.tblRegView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 895F));
             this.tblRegView.Controls.Add(this.label6, 0, 3);
             this.tblRegView.Controls.Add(this.label3, 0, 1);
             this.tblRegView.Controls.Add(this.label4, 0, 2);
@@ -184,7 +184,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(123, 5);
+            this.label1.Location = new System.Drawing.Point(122, 5);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 18);
@@ -196,7 +196,7 @@
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(340, 5);
+            this.label5.Location = new System.Drawing.Point(339, 5);
             this.label5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 18);
@@ -208,7 +208,7 @@
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(518, 5);
+            this.label7.Location = new System.Drawing.Point(517, 5);
             this.label7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(68, 18);
@@ -220,10 +220,10 @@
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(4, 6);
+            this.label8.Location = new System.Drawing.Point(4, 5);
             this.label8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(112, 16);
+            this.label8.Size = new System.Drawing.Size(80, 18);
             this.label8.TabIndex = 7;
             this.label8.Text = "Click to copy";
             // 
@@ -232,108 +232,108 @@
             this.lbld1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbld1.AutoSize = true;
             this.lbld1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbld1.Location = new System.Drawing.Point(123, 45);
+            this.lbld1.Location = new System.Drawing.Point(122, 45);
             this.lbld1.Name = "lbld1";
             this.lbld1.Size = new System.Drawing.Size(198, 18);
             this.lbld1.TabIndex = 8;
             this.lbld1.Text = "9223372036854775807";
-            this.lbld1.Click += new System.EventHandler(this.Lbld1_Click);
+            this.lbld1.Click += new System.EventHandler(this.lbl_copy);
             // 
             // lblh1
             // 
             this.lblh1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblh1.AutoSize = true;
             this.lblh1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblh1.Location = new System.Drawing.Point(340, 45);
+            this.lblh1.Location = new System.Drawing.Point(339, 45);
             this.lblh1.Name = "lblh1";
             this.lblh1.Size = new System.Drawing.Size(168, 18);
             this.lblh1.TabIndex = 9;
             this.lblh1.Text = "7FFFFFFFFFFFFFFF";
-            this.lblh1.Click += new System.EventHandler(this.Lblh1_Click);
+            this.lblh1.Click += new System.EventHandler(this.lbl_copy);
             // 
             // lblb1
             // 
             this.lblb1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblb1.AutoSize = true;
             this.lblb1.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblb1.Location = new System.Drawing.Point(518, 44);
+            this.lblb1.Location = new System.Drawing.Point(517, 44);
             this.lblb1.Name = "lblb1";
             this.lblb1.Size = new System.Drawing.Size(879, 21);
             this.lblb1.TabIndex = 10;
             this.lblb1.Text = "0111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111";
-            this.lblb1.Click += new System.EventHandler(this.Lblb1_Click);
+            this.lblb1.Click += new System.EventHandler(this.lbl_copy);
             // 
             // lbld2
             // 
             this.lbld2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbld2.AutoSize = true;
             this.lbld2.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbld2.Location = new System.Drawing.Point(123, 99);
+            this.lbld2.Location = new System.Drawing.Point(122, 99);
             this.lbld2.Name = "lbld2";
             this.lbld2.Size = new System.Drawing.Size(198, 18);
             this.lbld2.TabIndex = 11;
             this.lbld2.Text = "9223372036854775807";
-            this.lbld2.Click += new System.EventHandler(this.Lbld2_Click);
+            this.lbld2.Click += new System.EventHandler(this.lbl_copy);
             // 
             // lblb2
             // 
             this.lblb2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblb2.AutoSize = true;
             this.lblb2.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblb2.Location = new System.Drawing.Point(518, 98);
+            this.lblb2.Location = new System.Drawing.Point(517, 98);
             this.lblb2.Name = "lblb2";
             this.lblb2.Size = new System.Drawing.Size(879, 21);
             this.lblb2.TabIndex = 13;
             this.lblb2.Text = "0111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111";
-            this.lblb2.Click += new System.EventHandler(this.Lblb2_Click);
+            this.lblb2.Click += new System.EventHandler(this.lbl_copy);
             // 
             // lblb3
             // 
             this.lblb3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblb3.AutoSize = true;
             this.lblb3.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblb3.Location = new System.Drawing.Point(518, 153);
+            this.lblb3.Location = new System.Drawing.Point(517, 153);
             this.lblb3.Name = "lblb3";
             this.lblb3.Size = new System.Drawing.Size(879, 21);
             this.lblb3.TabIndex = 14;
             this.lblb3.Text = "0111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111";
-            this.lblb3.Click += new System.EventHandler(this.Lblb3_Click);
+            this.lblb3.Click += new System.EventHandler(this.lbl_copy);
             // 
             // lblh3
             // 
             this.lblh3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblh3.AutoSize = true;
             this.lblh3.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblh3.Location = new System.Drawing.Point(340, 154);
+            this.lblh3.Location = new System.Drawing.Point(339, 154);
             this.lblh3.Name = "lblh3";
             this.lblh3.Size = new System.Drawing.Size(168, 18);
             this.lblh3.TabIndex = 15;
             this.lblh3.Text = "7FFFFFFFFFFFFFFF";
-            this.lblh3.Click += new System.EventHandler(this.Lblh3_Click);
+            this.lblh3.Click += new System.EventHandler(this.lbl_copy);
             // 
             // lbld3
             // 
             this.lbld3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbld3.AutoSize = true;
             this.lbld3.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbld3.Location = new System.Drawing.Point(123, 154);
+            this.lbld3.Location = new System.Drawing.Point(122, 154);
             this.lbld3.Name = "lbld3";
             this.lbld3.Size = new System.Drawing.Size(198, 18);
             this.lbld3.TabIndex = 16;
             this.lbld3.Text = "9223372036854775807";
-            this.lbld3.Click += new System.EventHandler(this.Lbld3_Click);
+            this.lbld3.Click += new System.EventHandler(this.lbl_copy);
             // 
             // lblh2
             // 
             this.lblh2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblh2.AutoSize = true;
             this.lblh2.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblh2.Location = new System.Drawing.Point(340, 99);
+            this.lblh2.Location = new System.Drawing.Point(339, 99);
             this.lblh2.Name = "lblh2";
             this.lblh2.Size = new System.Drawing.Size(168, 18);
             this.lblh2.TabIndex = 12;
             this.lblh2.Text = "7FFFFFFFFFFFFFFF";
-            this.lblh2.Click += new System.EventHandler(this.Lblh2_Click);
+            this.lblh2.Click += new System.EventHandler(this.lbl_copy);
             // 
             // cbxBits
             // 
@@ -511,7 +511,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 165F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 193F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 751F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 752F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.label9, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 1);
@@ -557,7 +557,7 @@
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(121, 10);
+            this.label12.Location = new System.Drawing.Point(120, 10);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(78, 18);
             this.label12.TabIndex = 3;
@@ -568,7 +568,7 @@
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(287, 10);
+            this.label13.Location = new System.Drawing.Point(286, 10);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(38, 18);
             this.label13.TabIndex = 4;
@@ -579,7 +579,7 @@
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(481, 10);
+            this.label14.Location = new System.Drawing.Point(480, 10);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(68, 18);
             this.label14.TabIndex = 6;
@@ -588,7 +588,7 @@
             // tbxConHex
             // 
             this.tbxConHex.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tbxConHex.Location = new System.Drawing.Point(301, 60);
+            this.tbxConHex.Location = new System.Drawing.Point(300, 60);
             this.tbxConHex.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.tbxConHex.Name = "tbxConHex";
             this.tbxConHex.Size = new System.Drawing.Size(159, 26);
@@ -599,7 +599,7 @@
             // tbxConDec
             // 
             this.tbxConDec.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tbxConDec.Location = new System.Drawing.Point(123, 60);
+            this.tbxConDec.Location = new System.Drawing.Point(122, 60);
             this.tbxConDec.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.tbxConDec.Name = "tbxConDec";
             this.tbxConDec.Size = new System.Drawing.Size(155, 26);
@@ -610,7 +610,7 @@
             // tbxConBin
             // 
             this.tbxConBin.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tbxConBin.Location = new System.Drawing.Point(490, 60);
+            this.tbxConBin.Location = new System.Drawing.Point(489, 60);
             this.tbxConBin.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.tbxConBin.Name = "tbxConBin";
             this.tbxConBin.Size = new System.Drawing.Size(727, 26);

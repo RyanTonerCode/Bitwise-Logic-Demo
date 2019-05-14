@@ -10,7 +10,7 @@ namespace Bitwise_Logic_Demo
         int bitArchitecture = 32;
         int bitSpacing = 8;
 
-        Format inFormat1, inFormat2, conFormat;
+        Format inFormat1, inFormat2;
 
         public frmMain()
         {
@@ -242,23 +242,9 @@ namespace Bitwise_Logic_Demo
             Clipboard.SetText(lbl.Text.Trim().Replace(" ", ""));
         }
 
-        private void Lblb1_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
+        private void lbl_copy(object sender, EventArgs e) => copyToClipboard((Label)sender);
 
-        private void Lblb2_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
-
-        private void Lblb3_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
-
-        private void Lblh1_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
-
-        private void Lblh2_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
-
-        private void Lblh3_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
-
-        private void Lbld3_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
-
-        private void Lbld2_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
-
-        void convert()
+        void convert(Format conFormat)
         {
             long val = 0;
             try
@@ -279,17 +265,17 @@ namespace Bitwise_Logic_Demo
 
         private void TbxConHex_TextChanged(object sender, EventArgs e)
         {
-            conFormat = Format.HEX; convert();
+            convert(Format.HEX);
         }
 
         private void TbxConBin_TextChanged(object sender, EventArgs e)
         {
-            conFormat = Format.BINARY; convert();
+            convert(Format.BINARY);
         }
 
         private void TbxConDec_TextChanged(object sender, EventArgs e)
         {
-            conFormat = Format.DECIMAL; convert();
+            convert(Format.DECIMAL);
         }
 
         private void TbxConHex_DoubleClick(object sender, EventArgs e)
