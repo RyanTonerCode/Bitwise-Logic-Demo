@@ -5,30 +5,34 @@ namespace Bitwise_Logic_Demo
 {
     public partial class frmMain : Form
     {
+        private enum GATES { AND, OR, NOR, NAND, XOR, XNOR, SLL, SRL, ADD, SUB, MULT, TWOSCOMP, NOT };
+        private enum FORMAT { DECIMAL, HEX, BINARY };
 
-        Gates selectedGate;
+        GATES selectedGate;
         int bitArchitecture = 32;
         int bitSpacing = 8;
 
-        Format inFormat1, inFormat2;
+        bool signed = true;
+
+        FORMAT inFormat1, inFormat2;
 
         public frmMain()
         {
             InitializeComponent();
 
-            foreach(Gates gate in Enum.GetValues(typeof(Gates)))
+            foreach(GATES gate in Enum.GetValues(typeof(GATES)))
             {
                 cbxGates.Items.Add(gate.ToString());
             }
 
-            foreach (Format fmat in Enum.GetValues(typeof(Format)))
+            foreach (FORMAT fmat in Enum.GetValues(typeof(FORMAT)))
             {
                 cbxFormat1.Items.Add(fmat.ToString());
                 cbxFormat2.Items.Add(fmat.ToString());
             }
 
             cbxGates.SelectedIndex = 0;
-            cbxBits.SelectedIndex = 1;
+            cbxBits.SelectedIndex = 2;
             cbxSpace.SelectedIndex = 3;
             cbxFormat1.SelectedIndex = 0;
             cbxFormat2.SelectedIndex = 0;
@@ -38,12 +42,9 @@ namespace Bitwise_Logic_Demo
             submit();
         }
 
-        private enum Gates{ AND, OR, NOR, NAND, XOR, XNOR, SLL, SRL, ADD, SUB, MULT, TWOSCOMP, NOT };
-        private enum Format { DECIMAL, HEX, BINARY };
-
         private void CbxGates_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (Gates gate in Enum.GetValues(typeof(Gates)))
+            foreach (GATES gate in Enum.GetValues(typeof(GATES)))
             {
                 if (gate.ToString().Equals(cbxGates.Text))
                 {
@@ -55,7 +56,8 @@ namespace Bitwise_Logic_Demo
 
         private void CbxBits_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bitArchitecture = int.Parse(cbxBits.Text);
+            bitArchitecture = int.Parse(cbxBits.Text.Replace("u", ""));
+            signed = !cbxBits.Text.Contains("u");
         }
 
         private void CbxSpace_SelectedIndexChanged(object sender, EventArgs e)
@@ -65,7 +67,7 @@ namespace Bitwise_Logic_Demo
 
         private void CbxFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (Format fmat in Enum.GetValues(typeof(Format)))
+            foreach (FORMAT fmat in Enum.GetValues(typeof(FORMAT)))
             {
                 if (fmat.ToString().Equals(cbxFormat1.Text))
                 {
@@ -77,7 +79,7 @@ namespace Bitwise_Logic_Demo
 
         private void CbxFormat2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (Format fmat in Enum.GetValues(typeof(Format)))
+            foreach (FORMAT fmat in Enum.GetValues(typeof(FORMAT)))
             {
                 if (fmat.ToString().Equals(cbxFormat2.Text))
                 {
@@ -87,7 +89,7 @@ namespace Bitwise_Logic_Demo
             }
         }
 
-        void parse(string txt, Format f, out string res, out long res2)
+        void parse(string txt, FORMAT f, out string res, out long res2)
         {
             res = "";
 
@@ -95,18 +97,18 @@ namespace Bitwise_Logic_Demo
             long? val = null;
             try
             {
-                if (f == Format.DECIMAL)
+                if (f == FORMAT.DECIMAL)
                 {
                     val = Convert.ToInt64(txt, 10);
                     res = Convert.ToString((long)val, 2);
                 }
-                else if (f == Format.HEX)
+                else if (f == FORMAT.HEX)
                 {
                     txt = txt.Replace("0x", "");
                     val = Convert.ToInt64(txt, 16);
                     res = Convert.ToString((long)val, 2);
                 }
-                else if (f == Format.BINARY)
+                else if (f == FORMAT.BINARY)
                 {
                     txt = txt.Replace("0b", "");
                     val = Convert.ToInt64(txt, 2);
@@ -114,6 +116,9 @@ namespace Bitwise_Logic_Demo
                 }
             }
             catch (Exception) { }
+
+            string bitOverflow = "You have a bit overflow! Check your architecture";
+
 
             if (val == null)
             {
@@ -123,7 +128,21 @@ namespace Bitwise_Logic_Demo
             }
             else { 
                  res = formatStr(res);
-                 res2 = (long)val;
+
+                int totBits = res.Replace(" ", "").Length - 1;
+
+                res2 = (long)val;
+                if (res2 < 0 && signed)
+                    return;
+
+                bool overflow =
+                    ((ulong)res2 > UInt64.MaxValue && bitArchitecture == 64 && !signed) ||
+                    (res2 > UInt32.MaxValue && bitArchitecture == 32 && !signed) ||
+                    (res2 > UInt16.MaxValue && bitArchitecture == 16 && !signed) || 
+                    totBits > bitArchitecture;
+
+                if (overflow)
+                    MessageBox.Show(bitOverflow);
             }
         }
 
@@ -160,6 +179,7 @@ namespace Bitwise_Logic_Demo
             parse(tbxOp1.Text, inFormat1, out string op1, out long o1);
             parse(tbxOp2.Text, inFormat2, out string op2, out long o2);
 
+            //binary does not care about sign
             lblb1.Text = op1;
             lblb2.Text = op2;
 
@@ -171,12 +191,50 @@ namespace Bitwise_Logic_Demo
                 lblh2.Text = Convert.ToString(o2, 16);
 
 
+                if (signed && op1[0] == '1')
+                {
+                    if (bitArchitecture == 64)
+                    {
+                        Int64 neg = Convert.ToInt64(op1.Replace(" ", ""), 2);
+                        lbld1.Text = Convert.ToString(neg, 10);
+                    }
+                    else if (bitArchitecture == 32)
+                    {
+                        Int32 neg = Convert.ToInt32(op1.Replace(" ", ""), 2);
+                        lbld1.Text = Convert.ToString(neg, 10);
+                    }
+                    else if (bitArchitecture == 16)
+                    {
+                        Int16 neg = Convert.ToInt16(op1.Replace(" ", ""), 2);
+                        lbld1.Text = Convert.ToString(neg, 10);
+                    }
+                }
+
                 long result = calc(o1, o2);
                 string str = Convert.ToString(result, 2);
 
                 lblb3.Text = formatStr(str);
                 lbld3.Text = Convert.ToString(result, 10);
                 lblh3.Text = Convert.ToString(result, 16);
+
+                if (signed && op2[0] == '1')
+                {
+                    if (bitArchitecture == 64)
+                    {
+                        Int64 neg = Convert.ToInt64(op2.Replace(" ", ""), 2);
+                        lbld2.Text = Convert.ToString(neg, 10);
+                    }
+                    else if (bitArchitecture == 32)
+                    {
+                        Int32 neg = Convert.ToInt32(op2.Replace(" ", ""), 2);
+                        lbld2.Text = Convert.ToString(neg, 10);
+                    }
+                    else if (bitArchitecture == 32)
+                    {
+                        Int16 neg = Convert.ToInt16(op2.Replace(" ", ""), 2);
+                        lbld2.Text = Convert.ToString(neg, 10);
+                    }
+                }
             }
             catch (Exception) { }
         }
@@ -186,7 +244,7 @@ namespace Bitwise_Logic_Demo
 
         long calc(long o1, long o2)
         {
-            if (selectedGate == Gates.NOT || selectedGate == Gates.TWOSCOMP)
+            if (selectedGate == GATES.NOT || selectedGate == GATES.TWOSCOMP)
             {
                 lblh2.Text = "";
                 lbld2.Text = "";
@@ -197,43 +255,34 @@ namespace Bitwise_Logic_Demo
             o2 = ~(~o2);
             switch (selectedGate)
             {
-                case Gates.ADD:
+                case GATES.ADD:
                     return o1 + o2;
-                case Gates.AND:
+                case GATES.AND:
                     return o1 & o2;
-                case Gates.OR:
+                case GATES.OR:
                     return o1 | o2;
-                case Gates.NOR:
+                case GATES.NOR:
                     return ~(o1 | o2);
-                case Gates.NAND:
+                case GATES.NAND:
                     return ~(o1 & o2);
-                case Gates.XOR:
+                case GATES.XOR:
                     return (o1 ^ o2);
-                case Gates.XNOR:
+                case GATES.XNOR:
                     return ~(o1 ^ o2);
-                case Gates.SLL:
+                case GATES.SLL:
                     return o1 << (int)o2;
-                case Gates.SRL:
+                case GATES.SRL:
                     return o1 >> (int)o2;
-                case Gates.SUB:
+                case GATES.SUB:
                     return o1 - o2;
-                case Gates.MULT:
+                case GATES.MULT:
                     return o1 * o2;
-                case Gates.TWOSCOMP:
+                case GATES.TWOSCOMP:
                     return ~(o1) + 1;
-                case Gates.NOT:
+                case GATES.NOT:
                     return ~o1;
                 default:
                     return 0;
-            }
-        }
-
-        private void TbxOp1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if(e.KeyChar == (char)Keys.Enter)
-            {
-                parse(tbxOp1.Text, inFormat1, out string op1, out long o1);
-                lblb1.Text = op1;
             }
         }
 
@@ -244,16 +293,16 @@ namespace Bitwise_Logic_Demo
 
         private void lbl_copy(object sender, EventArgs e) => copyToClipboard((Label)sender);
 
-        void convert(Format conFormat)
+        void convert(FORMAT conFormat)
         {
             long val = 0;
             try
             {
-                if (conFormat == Format.BINARY && tbxConBin.Text != string.Empty)
+                if (conFormat == FORMAT.BINARY && tbxConBin.Text != string.Empty)
                     val = Convert.ToInt64(tbxConBin.Text, 2);
-                else if (conFormat == Format.HEX && tbxConHex.Text != string.Empty)
+                else if (conFormat == FORMAT.HEX && tbxConHex.Text != string.Empty)
                     val = Convert.ToInt64(tbxConHex.Text, 16);
-                else if (conFormat == Format.DECIMAL && tbxConDec.Text != string.Empty)
+                else if (conFormat == FORMAT.DECIMAL && tbxConDec.Text != string.Empty)
                     val = Convert.ToInt64(tbxConDec.Text, 10);
 
                 tbxConBin.Text = Convert.ToString(val, 2);
@@ -265,17 +314,17 @@ namespace Bitwise_Logic_Demo
 
         private void TbxConHex_TextChanged(object sender, EventArgs e)
         {
-            convert(Format.HEX);
+            convert(FORMAT.HEX);
         }
 
         private void TbxConBin_TextChanged(object sender, EventArgs e)
         {
-            convert(Format.BINARY);
+            convert(FORMAT.BINARY);
         }
 
         private void TbxConDec_TextChanged(object sender, EventArgs e)
         {
-            convert(Format.DECIMAL);
+            convert(FORMAT.DECIMAL);
         }
 
         private void TbxConHex_DoubleClick(object sender, EventArgs e)
@@ -297,13 +346,5 @@ namespace Bitwise_Logic_Demo
             cbxFormat2.SelectedIndex = i;
         }
 
-        private void TbxOp2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                parse(tbxOp2.Text, inFormat1, out string op2, out long o1);
-                lblb2.Text = op2;
-            }
-        }
     }
 }
