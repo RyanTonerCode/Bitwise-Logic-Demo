@@ -79,7 +79,7 @@ namespace Bitwise_Logic_Demo
         {
             foreach (Format fmat in Enum.GetValues(typeof(Format)))
             {
-                if (fmat.ToString().Equals(cbxFormat1.Text))
+                if (fmat.ToString().Equals(cbxFormat2.Text))
                 {
                     inFormat2 = fmat;
                     break;
@@ -286,6 +286,16 @@ namespace Bitwise_Logic_Demo
         }
 
         private void Lbld1_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
+
+        private void swap_click(object sender, EventArgs e)
+        {
+            int i = cbxFormat1.SelectedIndex;
+            string s = tbxOp1.Text;
+            tbxOp1.Text = tbxOp2.Text;
+            tbxOp2.Text = s;
+            cbxFormat1.SelectedIndex = cbxFormat2.SelectedIndex;
+            cbxFormat2.SelectedIndex = i;
+        }
 
         private void TbxOp2_KeyPress(object sender, KeyPressEventArgs e)
         {
