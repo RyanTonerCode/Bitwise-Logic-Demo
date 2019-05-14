@@ -10,7 +10,7 @@ namespace Bitwise_Logic_Demo
         int bitArchitecture = 32;
         int bitSpacing = 8;
 
-        Format inFormat;
+        Format inFormat1, inFormat2, conFormat;
 
         public frmMain()
         {
@@ -23,13 +23,15 @@ namespace Bitwise_Logic_Demo
 
             foreach (Format fmat in Enum.GetValues(typeof(Format)))
             {
-                cbxFormat.Items.Add(fmat.ToString());
+                cbxFormat1.Items.Add(fmat.ToString());
+                cbxFormat2.Items.Add(fmat.ToString());
             }
 
             cbxGates.SelectedIndex = 0;
             cbxBits.SelectedIndex = 1;
             cbxSpace.SelectedIndex = 3;
-            cbxFormat.SelectedIndex = 0;
+            cbxFormat1.SelectedIndex = 0;
+            cbxFormat2.SelectedIndex = 0;
             tbxOp1.Text = "12";
             tbxOp2.Text = "3";
 
@@ -65,34 +67,46 @@ namespace Bitwise_Logic_Demo
         {
             foreach (Format fmat in Enum.GetValues(typeof(Format)))
             {
-                if (fmat.ToString().Equals(cbxFormat.Text))
+                if (fmat.ToString().Equals(cbxFormat1.Text))
                 {
-                    inFormat = fmat;
+                    inFormat1 = fmat;
                     break;
                 }
             }
         }
 
-        void parse(TextBox tbx, out string res, out long res2)
+        private void CbxFormat2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (Format fmat in Enum.GetValues(typeof(Format)))
+            {
+                if (fmat.ToString().Equals(cbxFormat1.Text))
+                {
+                    inFormat2 = fmat;
+                    break;
+                }
+            }
+        }
+
+        void parse(string txt, Format f, out string res, out long res2)
         {
             res = "";
 
-            string txt = tbx.Text.Replace(" ", "").ToLower();
+            txt = txt.Replace(" ", "").ToLower();
             long? val = null;
             try
             {
-                if (inFormat == Format.DECIMAL)
+                if (f == Format.DECIMAL)
                 {
                     val = Convert.ToInt64(txt, 10);
                     res = Convert.ToString((long)val, 2);
                 }
-                else if (inFormat == Format.HEX)
+                else if (f == Format.HEX)
                 {
                     txt = txt.Replace("0x", "");
                     val = Convert.ToInt64(txt, 16);
                     res = Convert.ToString((long)val, 2);
                 }
-                else if (inFormat == Format.BINARY)
+                else if (f == Format.BINARY)
                 {
                     txt = txt.Replace("0b", "");
                     val = Convert.ToInt64(txt, 2);
@@ -143,19 +157,26 @@ namespace Bitwise_Logic_Demo
 
         void submit()
         {
-            parse(tbxOp1, out string op1, out long o1);
-            parse(tbxOp2, out string op2, out long o2);
+            parse(tbxOp1.Text, inFormat1, out string op1, out long o1);
+            parse(tbxOp2.Text, inFormat2, out string op2, out long o2);
 
-            lblOut1.Text = op1;
-            lblOut2.Text = op2;
+            lblb1.Text = op1;
+            lblb2.Text = op2;
 
             try
             {
+                lbld1.Text = Convert.ToString(o1, 10);
+                lbld2.Text = Convert.ToString(o2, 10);
+                lblh1.Text = Convert.ToString(o1, 16);
+                lblh2.Text = Convert.ToString(o2, 16);
+
 
                 long result = calc(o1, o2);
                 string str = Convert.ToString(result, 2);
 
-                lblResult.Text = formatStr(str);
+                lblb3.Text = formatStr(str);
+                lbld3.Text = Convert.ToString(result, 10);
+                lblh3.Text = Convert.ToString(result, 16);
             }
             catch (Exception) { }
         }
@@ -166,7 +187,11 @@ namespace Bitwise_Logic_Demo
         long calc(long o1, long o2)
         {
             if (selectedGate == Gates.NOT || selectedGate == Gates.TWOSCOMP)
-                lblOut2.Text = "GATE USES 1 INPUT ONLY";
+            {
+                lblh2.Text = "";
+                lbld2.Text = "";
+                lblb2.Text = "GATE USES 1 INPUT ONLY";
+            }
 
             o1 = ~(~o1);
             o2 = ~(~o2);
@@ -207,17 +232,81 @@ namespace Bitwise_Logic_Demo
         {
             if(e.KeyChar == (char)Keys.Enter)
             {
-                parse(tbxOp1, out string op1, out long l);
-                lblOut1.Text = op1;
+                parse(tbxOp1.Text, inFormat1, out string op1, out long o1);
+                lblb1.Text = op1;
             }
         }
+
+        void copyToClipboard(Label lbl)
+        {
+            Clipboard.SetText(lbl.Text.Trim().Replace(" ", ""));
+        }
+
+        private void Lblb1_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
+
+        private void Lblb2_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
+
+        private void Lblb3_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
+
+        private void Lblh1_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
+
+        private void Lblh2_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
+
+        private void Lblh3_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
+
+        private void Lbld3_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
+
+        private void Lbld2_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
+
+        void convert()
+        {
+            long val = 0;
+            try
+            {
+                if (conFormat == Format.BINARY && tbxConBin.Text != string.Empty)
+                    val = Convert.ToInt64(tbxConBin.Text, 2);
+                else if (conFormat == Format.HEX && tbxConHex.Text != string.Empty)
+                    val = Convert.ToInt64(tbxConHex.Text, 16);
+                else if (conFormat == Format.DECIMAL && tbxConDec.Text != string.Empty)
+                    val = Convert.ToInt64(tbxConDec.Text, 10);
+
+                tbxConBin.Text = Convert.ToString(val, 2);
+                tbxConDec.Text = Convert.ToString(val, 10);
+                tbxConHex.Text = Convert.ToString(val, 16);
+            }
+            catch (Exception) {  }
+        }
+
+        private void TbxConHex_TextChanged(object sender, EventArgs e)
+        {
+            conFormat = Format.HEX; convert();
+        }
+
+        private void TbxConBin_TextChanged(object sender, EventArgs e)
+        {
+            conFormat = Format.BINARY; convert();
+        }
+
+        private void TbxConDec_TextChanged(object sender, EventArgs e)
+        {
+            conFormat = Format.DECIMAL; convert();
+        }
+
+        private void TbxConHex_DoubleClick(object sender, EventArgs e)
+        {
+            tbxConBin.Text = "";
+            tbxConDec.Text = "";
+            tbxConHex.Text = "";
+        }
+
+        private void Lbld1_Click(object sender, EventArgs e) => copyToClipboard((Label)sender);
 
         private void TbxOp2_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                parse(tbxOp2, out string op2, out long l);
-                lblOut2.Text = op2;
+                parse(tbxOp2.Text, inFormat1, out string op2, out long o1);
+                lblb2.Text = op2;
             }
         }
     }
